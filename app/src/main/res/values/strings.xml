@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MVVM_Example</string>
+    <string name="enter_name">enter name</string>
+    <string name="enter_team">enter team</string>
+    <string name="add_player">Add player</string>
+    <string name="save">save</string>
+</resources>
