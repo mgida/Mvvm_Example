@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".ui.AddPlayerActivity">
+    tools:context=".ui.AddEditPlayerActivity">
 
     <EditText
         android:id="@+id/name_et"

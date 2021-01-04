@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textColor="@color/colorPrimary"
         tools:text="modric" />
 
 
@@ -18,7 +19,7 @@
         android:id="@+id/player_team_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:layout_marginTop="5dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         tools:text="Real madrid" />
 </LinearLayout>

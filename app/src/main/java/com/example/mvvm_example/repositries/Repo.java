@@ -41,6 +41,29 @@ public class Repo {
         });
     }
 
+    public void updatePlayer(final Player player) {
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.playerDao().updatePlayer(player);
+            }
+        });
+
+
+    }
+
+
+    public void deleteAllPlayers() {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.playerDao().deleteAllPlayers();
+            }
+        });
+
+    }
+
 
     public LiveData<List<Player>> loadPlayers() {
         mPlayers = mDb.playerDao().loadPlayers();

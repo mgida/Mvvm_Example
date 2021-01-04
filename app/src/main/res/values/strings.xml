@@ -4,4 +4,6 @@
     <string name="enter_team">enter team</string>
     <string name="add_player">Add player</string>
     <string name="save">save</string>
+    <string name="deleteAllPlayers">delete all Players</string>
+    <string name="no_items_found">No items found</string>
 </resources>

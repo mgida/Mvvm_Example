@@ -3,11 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/Add_player_action"
-        android:orderInCategory="100"
-        android:title="@string/add_player"
-        app:showAsAction="never"
-
-        />
+        android:id="@+id/delete_all_players_action"
+        android:title="@string/deleteAllPlayers"
+        app:showAsAction="never" />
 
 </menu>

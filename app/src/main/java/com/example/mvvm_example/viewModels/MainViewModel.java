@@ -14,29 +14,37 @@ import java.util.List;
 public class MainViewModel extends AndroidViewModel {
 
     private LiveData<List<Player>> mPlayers;
-    private  Repo repo;
+    private Repo mRepo;
 
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        repo = new Repo(application);
-
-    }
-
-    public void insertPlayer(Player player) {
-        repo.insertPlayer(player);
+        mRepo = new Repo(application);
 
     }
 
 
     public LiveData<List<Player>> getPlayers() {
-        mPlayers = repo.loadPlayers();
+        mPlayers = mRepo.loadPlayers();
         return mPlayers;
 
     }
 
-    public void deletePlayer(Player player) {
-        repo.deletePlayer(player);
+    public void insertPlayer(Player player) {
+        mRepo.insertPlayer(player);
 
+    }
+
+    public void deletePlayer(Player player) {
+        mRepo.deletePlayer(player);
+
+    }
+
+    public void deleteAllPlayers() {
+        mRepo.deleteAllPlayers();
+    }
+
+    public void updatePlayer(Player player) {
+        mRepo.updatePlayer(player);
     }
 }

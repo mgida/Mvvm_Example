@@ -1,7 +1,6 @@
 package com.example.mvvm_example;
 
 
-
 import android.os.Handler;
 import android.os.Looper;
 
@@ -18,13 +17,10 @@ public class AppExecutors {
     private static final Object LOCK = new Object();
     private static AppExecutors sInstance;
     private final Executor diskIO;
-    private final Executor mainThread;
-    private final Executor networkIO;
 
     private AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread) {
         this.diskIO = diskIO;
-        this.networkIO = networkIO;
-        this.mainThread = mainThread;
+
     }
 
     public static AppExecutors getInstance() {
@@ -41,7 +37,6 @@ public class AppExecutors {
     public Executor diskIO() {
         return diskIO;
     }
-
 
 
     private static class MainThreadExecutor implements Executor {

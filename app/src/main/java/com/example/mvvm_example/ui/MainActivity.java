@@ -14,16 +14,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mvvm_example.dataBase.Player;
 import com.example.mvvm_example.PlayerAdapter;
 import com.example.mvvm_example.R;
 import com.example.mvvm_example.viewModels.MainViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PlayerAdapter.onItemClickListener {
 
     private static final String TAG = "MainActivity";
 
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private PlayerAdapter mPlayerAdapter;
     private MainViewModel mMainViewModel;
     private LiveData<List<Player>> mPlayers;
-
+    private FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initRecyclerView();
+
+        mFab = findViewById(R.id.floatingActionButton);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddEditPlayerActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mMainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mPlayers = mMainViewModel.getPlayers();
@@ -50,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -64,15 +76,20 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "item deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(mRecyclerView);
+
+
     }
+
 
     private void initRecyclerView() {
         mRecyclerView = findViewById(R.id.rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
-        mPlayerAdapter = new PlayerAdapter();
+        mPlayerAdapter = new PlayerAdapter(this);
         mRecyclerView.setAdapter(mPlayerAdapter);
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,10 +100,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemClicked = item.getItemId();
-        if (itemClicked == R.id.Add_player_action) {
-            Intent intent = new Intent(MainActivity.this, AddPlayerActivity.class);
-            startActivity(intent);
+
+
+        switch (itemClicked) {
+            case R.id.delete_all_players_action:
+
+                if (mPlayerAdapter.getItemCount() == 0) {
+                    Toast.makeText(this, "No items to delete", Toast.LENGTH_SHORT).show();
+                } else {
+                    mMainViewModel.deleteAllPlayers();
+                    Toast.makeText(this, "items deleted", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+
+
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClicked(int playerId) {
+
+        Intent intent = new Intent(MainActivity.this, AddEditPlayerActivity.class);
+        intent.putExtra(AddEditPlayerActivity.PLAYER_ID_KEY, playerId);
+        startActivity(intent);
+
     }
 }

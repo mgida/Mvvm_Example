@@ -15,6 +15,11 @@ import java.util.List;
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder> {
     private List<Player> mPlayers = new ArrayList<>();
+    private onItemClickListener onItemClickListener;
+
+    public PlayerAdapter(PlayerAdapter.onItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
 
     @NonNull
@@ -41,7 +46,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
     }
 
 
-    public class PlayerViewHolder extends RecyclerView.ViewHolder {
+    public class PlayerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mPlayerNameTextView;
         private TextView mPlayerTeamTextView;
@@ -51,9 +56,20 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
 
             mPlayerNameTextView = itemView.findViewById(R.id.player_name_tv);
             mPlayerTeamTextView = itemView.findViewById(R.id.player_team_tv);
+            itemView.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View view) {
+
+            int playerId = mPlayers.get(getAdapterPosition()).getPlayerId();
+            onItemClickListener.onItemClicked(playerId);
+        }
+    }
+
+    public interface onItemClickListener {
+        public void onItemClicked(int playerId);
     }
 
 
@@ -67,8 +83,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.PlayerView
         return mPlayers.get(position);
 
     }
-
-
 
 
 }
