@@ -5,6 +5,8 @@
 * ViewModel
 * RecyclerView
 
+![Alt Text](https://imgflip.com/gif/4zno4q.gif)
+
  <a href="https://imgflip.com/gif/4zno4q"><img src="https://imgflip.com/embed/4zno4q"/></a>
  
  
