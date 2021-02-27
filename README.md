@@ -5,6 +5,6 @@
 * ViewModel
 * RecyclerView
 
-![](https://imgflip.com/gif/4zno4q.gif)
+![gif](https://imgflip.com/gif/4zno4q.gif)
  
  
